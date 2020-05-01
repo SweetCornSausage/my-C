@@ -1,5 +1,3 @@
-/* 队列改进:  <01-05-20, zhenl> */
-
 #include <stdio.h>
 #include <stdlib.h>
 typedef int ElementType;
