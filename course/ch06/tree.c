@@ -75,6 +75,7 @@ int main()
 {
     Tree t = CreateTree();
     CreateFromStdin(t);
+    // ab#cd###e#fgh##i###
     printf("先序输出:\n");
     ScanPre(t);
     printf("\n中序输出:\n");
