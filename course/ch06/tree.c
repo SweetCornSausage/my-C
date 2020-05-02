@@ -7,9 +7,11 @@ typedef struct Node *PtrToNode;
 typedef struct Node *Tree;
 
 Tree CreateTree();
+void DestroyTree(Tree T);
 void CreateFromStdin(Tree T);
 void CreateWithQueue(Tree T);
 void CreateFromQueue(Tree T, Queue Q);
+int Depth(Tree T);
 void ScanPre(Tree T);
 void ScanIn(Tree T);
 void ScanBack(Tree T);
@@ -25,6 +27,16 @@ Tree CreateTree()
 {
     Tree t = malloc(sizeof(struct Node));
     return t;
+}
+
+void DestroyTree(Tree T)
+{
+    if (T)
+    {
+        DestroyTree(T->lchild);
+        DestroyTree(T->rchild);
+        free(T);
+    }
 }
 
 void CreateFromStdin(Tree T)
@@ -56,11 +68,17 @@ void CreateWithQueue(Tree T)
     Enqueue('\0', q);
     CreateFromQueue(T, q);
     if (IsEmpty(q))
+    {
         printf("太短\n");
+        exit(0);
+    }
     else if (Front(q) == '\0')
-        printf("可以\n");
+        printf("可以,继续\n");
     else
+    {
         printf("太长\n");
+        exit(0);
+    }
 }
 
 void CreateFromQueue(Tree T, Queue Q)
@@ -79,6 +97,17 @@ void CreateFromQueue(Tree T, Queue Q)
         CreateFromQueue(T->lchild, Q);
         CreateFromQueue(T->rchild, Q);
     }
+}
+
+int Depth(Tree T)
+{
+    if (T->data != '\0')
+    {
+        int left = Depth(T->lchild) + 1;
+        int right = Depth(T->rchild) + 1;
+        return left > right ? left : right;
+    }
+    return 0;
 }
 
 void ScanPre(Tree T)
@@ -115,6 +144,7 @@ int main()
 {
     Tree t = CreateTree();
     CreateWithQueue(t);
+    printf("深度为: %d\n", Depth(t));
     printf("先序输出:\n");
     ScanPre(t);
     printf("\n中序输出:\n");
