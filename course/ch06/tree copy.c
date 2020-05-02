@@ -7,6 +7,8 @@ typedef struct Node *PtrToNode;
 typedef struct Node *Tree;
 
 Tree CreateTree();
+void DestroyTree(Tree T);
+void CreateFromStdin(Tree T);
 void CreateWithQueue(Tree T);
 void CreateFromQueue(Tree T, Queue Q);
 int Depth(Tree T);
@@ -142,6 +144,7 @@ int main()
 {
     Tree t = CreateTree();
     CreateWithQueue(t);
+    printf("深度为: %d\n", Depth(t));
     printf("先序输出:\n");
     ScanPre(t);
     printf("\n中序输出:\n");
