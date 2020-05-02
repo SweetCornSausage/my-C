@@ -76,7 +76,6 @@ void CreateFromQueue(Tree T, Queue Q)
         T->data = ch;
         T->lchild = malloc(sizeof(struct Node));
         T->rchild = malloc(sizeof(struct Node));
-        // Dequeue(Q);
         CreateFromQueue(T->lchild, Q);
         CreateFromQueue(T->rchild, Q);
     }
