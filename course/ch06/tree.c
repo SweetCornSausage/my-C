@@ -9,7 +9,6 @@ typedef struct Node *Tree;
 Tree CreateTree();
 void CreateWithQueue(Tree T);
 void CreateFromQueue(Tree T, Queue Q);
-int Depth(Tree T);
 void ScanPre(Tree T);
 void ScanIn(Tree T);
 void ScanBack(Tree T);
@@ -99,7 +98,7 @@ void CreateFromQueue(Tree T, Queue Q)
 
 int Depth(Tree T)
 {
-    if (T->data != '\0')
+    if (T->data != 0)
     {
         int left = Depth(T->lchild) + 1;
         int right = Depth(T->rchild) + 1;
