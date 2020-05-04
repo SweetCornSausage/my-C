@@ -7,8 +7,9 @@ typedef struct Node *PtrToNode;
 typedef struct Node *Tree;
 
 Tree CreateTree();
+void CreateFromStdin(Tree T);
 void CreateWithQueue(Tree T);
-void CreateFromQueue(Tree T, Queue Q);
+static void CreateFromQueue(Tree T, Queue Q);
 void ScanPre(Tree T);
 void ScanIn(Tree T);
 void ScanBack(Tree T);
@@ -23,6 +24,7 @@ struct Node
 Tree CreateTree()
 {
     Tree t = malloc(sizeof(struct Node));
+    t->data = 0;
     return t;
 }
 
@@ -40,13 +42,15 @@ void CreateFromStdin(Tree T)
 {
     ElementType ch;
     ch = getchar();
+    while (ch == '\n')
+        ch = getchar();
     if (ch == '#')
         T = NULL;
     else
     {
         T->data = ch;
-        T->lchild = malloc(sizeof(struct Node));
-        T->rchild = malloc(sizeof(struct Node));
+        T->lchild = CreateTree();
+        T->rchild = CreateTree();
         CreateFromStdin(T->lchild);
         CreateFromStdin(T->rchild);
     }
@@ -78,7 +82,7 @@ void CreateWithQueue(Tree T)
     }
 }
 
-void CreateFromQueue(Tree T, Queue Q)
+static void CreateFromQueue(Tree T, Queue Q)
 {
     if (IsEmpty(Q))
         return;
@@ -89,8 +93,8 @@ void CreateFromQueue(Tree T, Queue Q)
     else
     {
         T->data = ch;
-        T->lchild = malloc(sizeof(struct Node));
-        T->rchild = malloc(sizeof(struct Node));
+        T->lchild = CreateTree();
+        T->rchild = CreateTree();
         CreateFromQueue(T->lchild, Q);
         CreateFromQueue(T->rchild, Q);
     }
@@ -140,6 +144,7 @@ void ScanBack(Tree T)
 int main()
 {
     Tree t = CreateTree();
+    // CreateFromStdin(t);
     CreateWithQueue(t);
     printf("先序输出:\n");
     ScanPre(t);
