@@ -3,8 +3,8 @@
 #include <stdlib.h>
 typedef int ElementType;
 struct Node;
-typedef struct Node *PtrToNode;
-typedef struct Node *Tree;
+typedef struct Node* PtrToNode;
+typedef struct Node* Tree;
 
 Tree CreateTree();
 void CreateFromStdin(Tree T);
@@ -14,8 +14,7 @@ void ScanPre(Tree T);
 void ScanIn(Tree T);
 void ScanBack(Tree T);
 
-struct Node
-{
+struct Node {
     ElementType data;
     PtrToNode lchild;
     PtrToNode rchild;
@@ -30,8 +29,7 @@ Tree CreateTree()
 
 void DestroyTree(Tree T)
 {
-    if (T)
-    {
+    if (T) {
         DestroyTree(T->lchild);
         DestroyTree(T->rchild);
         free(T);
@@ -46,8 +44,7 @@ void CreateFromStdin(Tree T)
         ch = getchar();
     if (ch == '#')
         T = NULL;
-    else
-    {
+    else {
         T->data = ch;
         T->lchild = CreateTree();
         T->rchild = CreateTree();
@@ -61,22 +58,18 @@ void CreateWithQueue(Tree T)
     Queue q = CreateQueue(64);
     ElementType ch;
     ch = getchar();
-    while (ch != '\n')
-    {
+    while (ch != '\n') {
         Enqueue(ch, q);
         ch = getchar();
     }
     Enqueue('\0', q);
     CreateFromQueue(T, q);
-    if (IsEmpty(q))
-    {
+    if (IsEmpty(q)) {
         printf("太短\n");
         exit(0);
-    }
-    else if (Front(q) == '\0')
+    } else if (Front(q) == '\0')
         printf("可以,继续\n");
-    else
-    {
+    else {
         printf("太长\n");
         exit(0);
     }
@@ -90,8 +83,7 @@ static void CreateFromQueue(Tree T, Queue Q)
     ch = FrontAndDequeue(Q);
     if (ch == '#')
         T = NULL;
-    else
-    {
+    else {
         T->data = ch;
         T->lchild = CreateTree();
         T->rchild = CreateTree();
@@ -102,8 +94,7 @@ static void CreateFromQueue(Tree T, Queue Q)
 
 int Depth(Tree T)
 {
-    if (T->data != 0)
-    {
+    if (T->data != 0) {
         int left = Depth(T->lchild) + 1;
         int right = Depth(T->rchild) + 1;
         return left > right ? left : right;
@@ -113,8 +104,7 @@ int Depth(Tree T)
 
 void ScanPre(Tree T)
 {
-    if (T->data != 0)
-    {
+    if (T->data != 0) {
         printf("%c", T->data);
         ScanPre(T->lchild);
         ScanPre(T->rchild);
@@ -123,8 +113,7 @@ void ScanPre(Tree T)
 
 void ScanIn(Tree T)
 {
-    if (T->data != 0)
-    {
+    if (T->data != 0) {
         ScanIn(T->lchild);
         printf("%c", T->data);
         ScanIn(T->rchild);
@@ -133,8 +122,7 @@ void ScanIn(Tree T)
 
 void ScanBack(Tree T)
 {
-    if (T->data != 0)
-    {
+    if (T->data != 0) {
         ScanBack(T->lchild);
         ScanBack(T->rchild);
         printf("%c", T->data);
